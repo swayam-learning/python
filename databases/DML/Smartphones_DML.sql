@@ -44,3 +44,24 @@ SELECT * FROM smartphones_cleaned_v6 WHERE processor_brand NOT IN ('snapdragon',
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 -- ------------------------UPDATE----------------------------------------------------------------------------------------------------------------
 UPDATE smartphones_cleaned_v6 SET processor_brand="dimensity" WHERE processor_brand="mediatek";
+-- -------------------------- DELETE ------------------------------------------------------------------------------------------------------------
+DELETE FROM smartphones_cleaned_v6 WHERE primary_camera_rear > 150;
+-- ----------------------------------------------------------------------------------------------------------------------------------------------
+/* UPDATE AND DELETE ARE PERMANENT OPERATIONS*/
+-- ----------------------------------------BUILT IN-FUNCTIONS -----------------------------------------------------------------------------------
+-- SCALAR FUNCTIONS
+-- AGGREGATE FUNCTIONS
+-- ----------------------------------------AGGREGATE FUNCTIONS-----------------------------------------------------------------------------------
+SELECT MAX(price) FROM smartphones_cleaned_v6 WHERE brand_name = 'samsung';
+SELECT * FROM smartphones_cleaned_v6 WHERE price = 110999;
+SELECT AVG(rating) FROM smartphones_cleaned_v6 WHERE brand_name='samsung';
+SELECT COUNT(*) FROM smartphones_cleaned_v6 WHERE brand_name="samsung";
+SELECT COUNT(DISTINCT(brand_name)) FROM smartphones_cleaned_v6;
+SELECT STD(screen_size) FROM smartphones_cleaned_v6;
+SELECT VARIANCE(screen_size) FROM smartphones_cleaned_v6;
+-- -------------------------------------SCALAR FUNCTIONS-----------------------------------------------------------------------------------------
+SELECT ABS(price - 100000) FROM smartphones_cleaned_v6;
+SELECT ROUND(SQRT(resolution_width*resolution_width + resolution_height*resolution_height)/screen_size) as round_ppi FROM smartphones_cleaned_v6;
+SELECT CEIL(rating) AS ceil_rating FROM smartphones_cleaned_v6;
+SELECT FLOOR(rating) AS floor_rating FROM smartphones_cleaned_v6;
+-- ---------------------------------------------------------------------------------------------------------------------------------------------
