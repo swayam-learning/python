@@ -23,4 +23,6 @@ UPDATE smartphones_cleaned_v6 SET has_nfc="no" WHERE has_nfc="False";
 SELECT has_nfc,AVG(price) AS 'avg price' , AVG(rating) as 'avg rating' FROM smartphones_cleaned_v6 GROUP BY has_nfc;
 SELECT fast_charging_available,AVG(price) AS 'avg price' , AVG(rating) as 'avg rating' FROM smartphones_cleaned_v6 GROUP BY fast_charging_available;
 SELECT brand_name,processor_brand,COUNT(model) AS 'total models' ,AVG(primary_camera_front) AS 'primary_front_camera' FROM smartphones_cleaned_v6 GROUP BY brand_name,processor_brand;
-
+SELECT brand_name,ROUND(AVG(price)) as avg_price FROM smartphones_cleaned_v6 GROUP BY brand_name,price ORDER BY avg_price DESC limit 5;
+SELECT brand_name,AVG(screen_size) AS "screen_size_avg" FROM smartphones_cleaned_v6  GROUP BY brand_name HAVING COUNT(model)>5 ORDER BY screen_size_avg ASC LIMIT 1,1; 
+SELECT has_5g,AVG(price) FROM smartphones_cleaned_v6 GROUP BY has_5g;
