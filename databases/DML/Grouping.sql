@@ -21,5 +21,6 @@ ROUND(AVG(battery_capacity)) AS avg_bttry_capacity  FROM smartphones_cleaned_v6 
 UPDATE smartphones_cleaned_v6 SET has_nfc="yes" WHERE has_nfc="True" ;
 UPDATE smartphones_cleaned_v6 SET has_nfc="no" WHERE has_nfc="False";
 SELECT has_nfc,AVG(price) AS 'avg price' , AVG(rating) as 'avg rating' FROM smartphones_cleaned_v6 GROUP BY has_nfc;
-
+SELECT fast_charging_available,AVG(price) AS 'avg price' , AVG(rating) as 'avg rating' FROM smartphones_cleaned_v6 GROUP BY fast_charging_available;
+SELECT brand_name,processor_brand,COUNT(model) AS 'total models' ,AVG(primary_camera_front) AS 'primary_front_camera' FROM smartphones_cleaned_v6 GROUP BY brand_name,processor_brand;
 
