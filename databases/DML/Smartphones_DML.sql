@@ -65,3 +65,4 @@ SELECT ROUND(SQRT(resolution_width*resolution_width + resolution_height*resoluti
 SELECT CEIL(rating) AS ceil_rating FROM smartphones_cleaned_v6;
 SELECT FLOOR(rating) AS floor_rating FROM smartphones_cleaned_v6;
 -- ---------------------------------------------------------------------------------------------------------------------------------------------
+SELECT * FROM smartphones_cleaned_v6;

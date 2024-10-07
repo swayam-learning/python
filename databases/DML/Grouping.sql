@@ -30,3 +30,13 @@ SELECT brand_name,COUNT(model) AS count FROM smartphones_cleaned_v6 WHERE has_ir
 SELECT has_nfc,AVG(price) AS "avg price" FROM smartphones_cleaned_v6 WHERE brand_name="samsung" AND has_5g="True" GROUP BY has_nfc;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ----------------------------- HAVING -----------------------------------------------------------------------------------------------------------------------------------------------
+SELECT brand_name,AVG(rating) FROM smartphones_cleaned_v6 GROUP BY brand_name HAVING COUNT(model)>20;
+SELECT brand_name,AVG(ram_capacity) as avg_ram_capacity FROM smartphones_cleaned_v6 
+WHERE refresh_rate > 90 AND fast_charging_available=1 
+GROUP BY brand_name  HAVING COUNT(*) > 10
+ORDER BY avg_ram_capacity DESC LIMIT 3;
+
+SELECT brand_name,AVG(price) as avg_price FROM smartphones_cleaned_v6 WHERE has_5g="True" GROUP BY brand_name HAVING AVG(rating)>70 AND count(*)>10;
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
