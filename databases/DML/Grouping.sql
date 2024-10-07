@@ -26,3 +26,7 @@ SELECT brand_name,processor_brand,COUNT(model) AS 'total models' ,AVG(primary_ca
 SELECT brand_name,ROUND(AVG(price)) as avg_price FROM smartphones_cleaned_v6 GROUP BY brand_name,price ORDER BY avg_price DESC limit 5;
 SELECT brand_name,AVG(screen_size) AS "screen_size_avg" FROM smartphones_cleaned_v6  GROUP BY brand_name HAVING COUNT(model)>5 ORDER BY screen_size_avg ASC LIMIT 1,1; 
 SELECT has_5g,AVG(price) FROM smartphones_cleaned_v6 GROUP BY has_5g;
+SELECT brand_name,COUNT(model) AS count FROM smartphones_cleaned_v6 WHERE has_ir_blaster="True" AND has_nfc="yes" GROUP BY brand_name ORDER BY count DESC LIMIT 1;
+SELECT has_nfc,AVG(price) AS "avg price" FROM smartphones_cleaned_v6 WHERE brand_name="samsung" AND has_5g="True" GROUP BY has_nfc;
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ----------------------------- HAVING -----------------------------------------------------------------------------------------------------------------------------------------------
