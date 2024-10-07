@@ -58,6 +58,21 @@ JOIN orders t2
 ON t1.order_id = t2.order_id 
 JOIN
 users t4 ON t4.user_id = t2.user_id;
-
-
-
+-- --------------------------------------------------------------------------------------------------------------
+-- Q1.Find order id, name, city by joining users and orders
+SELECT u1.name,u1.city,o1.order_id FROM users u1 JOIN orders o1 ON u1.user_id = o1.user_id;
+-- Q2 . Find order_id ,product category by joining order_details and category
+SELECT o1.order_id, c1.vertical FROM order_details o1 JOIN category c1 ON o1.category_id=c1.category_id;
+--Q3. Find all the orders placed in Pune
+SELECT o1.order_id,o1.user_id,u1.name,u1.state,u1.city FROM orders o1 JOIN users u1 ON o1.user_id = u1.user_id WHERE u1.city="Pune";
+-- Q4. find all the details for order where category is phones
+SELECT * FROM order_details o1 JOIN category c1 ON o1.category_id = c1.category_id WHERE c1.vertical="Phones";
+-- Q5. Find all the profitable orders
+SELECT o1.order_id,SUM(o1.profit) AS total_profit 
+FROM order_details o1 
+JOIN orders o2 
+ON o1.order_id = o2.order_id 
+GROUP BY o1.order_id 
+HAVING total_profit>0 
+ORDER BY total_profit 
+DESC LIMIT 100;
