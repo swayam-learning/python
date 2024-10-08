@@ -2,4 +2,9 @@
 select * from `movies (1)`;
 
 -- ------------------------- Sub-Queries------------------------------------------------------------------------------
-SELECT * FROM `movies (1)` WHERE score = (SELECT MAX(score) FROM `movies (1)`);
+SELECT * FROM `movies (1)` 
+-- outer query
+WHERE score = (SELECT MAX(score) FROM `movies (1)`);
+-- inner query result is acted upon the outer query
+
+-- --------------------------------------------------------------------------------------------------------------------
