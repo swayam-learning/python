@@ -24,4 +24,5 @@ SELECT * FROM `movies (1)` WHERE score > (SELECT AVG(score) FROM `movies (1)`);
 SELECT * FROM `movies (1)` WHERE year=2000  AND score =(SELECT MAX(score) FROM `movies (1)` WHERE year=2000)
 
 -- Q4. Find the highest rated movie among all movies whose number of votes are > the dataset avg votes
-SELECT * FROM `movies (1)` WHERE score>(SELECT AVG(score) FROM `movies (1)`) 
+SELECT * FROM `movies (1)` WHERE score = (SELECT MAX(score) FROM `movies (1)` WHERE votes > (SELECT AVG(votes) FROM `movies (1)`)); 
+
