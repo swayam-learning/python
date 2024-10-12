@@ -65,6 +65,7 @@ AND votes > 25000;
 
 -- Q6. Find the highest grossing movie of top 5 actor / director combo in terms of total gross income
 
+SELECT * FROM `movies (1)`;
 WITH top_actor_director_duo 
 AS (SELECT star,director,MAX(gross) 
     FROM `movies (1)` 
