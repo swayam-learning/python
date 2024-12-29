@@ -1,39 +1,50 @@
 import streamlit as st
 import pickle
-import numpy as np
+import pandas as pd
+from sklearn.pipeline import Pipeline
 
-# Load the trained model
-with open("app/pipe.pkl", "rb") as file:
+# Title and description
+st.title("Decision Tree Classifier App")
+st.write("This app uses a pre-trained Decision Tree model to make predictions.")
 
-    model = pickle.load(file)
+# Load the pickled model from a local file
+MODEL_PATH = "pipe.pkl"  # Replace with the actual path to your model file
+try:
+    with open(MODEL_PATH, "rb") as file:
+        model = pickle.load(file)
+        st.success("Model successfully loaded from local file!")
 
-# Define the Streamlit app
-def main():
-    st.title("Titanic Survival Prediction App")
-    st.write("Enter the passenger details to predict whether they would survive.")
-    
-    # Input features for the model
-    pclass = st.selectbox("Passenger Class (Pclass)", [1, 2, 3], format_func=lambda x: f"Class {x}")
-    sex = st.selectbox("Gender", ['Male', 'Female'])
-    age = st.number_input("Age (in years)", min_value=0, max_value=100, value=25)
-    sibsp = st.number_input("Number of Siblings/Spouses Aboard (SibSp)", min_value=0, max_value=10, value=0)
-    parch = st.number_input("Number of Parents/Children Aboard (Parch)", min_value=0, max_value=10, value=0)
-    fare = st.number_input("Fare (Ticket Price)", min_value=0.0, value=10.0)
-    embarked = st.selectbox("Port of Embarkation (Embarked)", ['C', 'Q', 'S'], format_func=lambda x: f"{x} - {'Cherbourg' if x=='C' else 'Queenstown' if x=='Q' else 'Southampton'}")
+        # Input features form
+        st.write("## Enter feature values:")
+        
+        # Create inputs dynamically (customize based on your feature set)
+        Pclass = st.selectbox("Passenger Class (Pclass):", options=[1, 2, 3])
+        Sex = st.selectbox("Sex:", options=["male", "female"])
+        Age = st.slider("Age:", min_value=0, max_value=100, value=25)
+        SibSp = st.number_input("Number of Siblings/Spouses aboard (SibSp):", min_value=0, value=0)
+        Parch = st.number_input("Number of Parents/Children aboard (Parch):", min_value=0, value=0)
+        Fare = st.number_input("Passenger Fare (Fare):", min_value=0.0, value=15.0)
+        Embarked = st.selectbox("Port of Embarkation:", options=["C", "Q", "S"])
 
-    # Convert categorical data to numerical
-    sex = 0 if sex == 'Male' else 1
-    embarked_dict = {'C': 0, 'Q': 1, 'S': 2}  # Encoding for embarked
-    embarked = embarked_dict[embarked]
+        # Map inputs to a DataFrame
+        input_data = pd.DataFrame({
+            "Pclass": [Pclass],
+            "Sex": [Sex],
+            "Age": [Age],
+            "SibSp": [SibSp],
+            "Parch": [Parch],
+            "Fare": [Fare],
+            "Embarked": [Embarked]
+        })
 
-    # Prepare the input for prediction
-    input_features = np.array([[pclass, sex, age, sibsp, parch, fare, embarked]])
+        st.write("### Input Data:")
+        st.write(input_data)
 
-    # Predict using the model
-    if st.button("Predict"):
-        prediction = model.predict(input_features)
-        survival = "Survived" if prediction[0] == 1 else "Did Not Survive"
-        st.write(f"The passenger would have: **{survival}**")
-
-if __name__ == '__main__':
-    main()
+        # Make predictions
+        if st.button("Predict"):
+            prediction = model.predict(input_data)
+            st.write("## Prediction:", prediction[0])
+except FileNotFoundError:
+    st.error(f"Model file not found at {MODEL_PATH}. Please ensure the file exists and try again.")
+except Exception as e:
+    st.error(f"An error occurred while loading the model: {e}")
